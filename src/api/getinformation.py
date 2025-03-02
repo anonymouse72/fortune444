@@ -542,7 +542,7 @@ def getTypeData():
         logger.info("Querying ChatGPT API with content: %s", query_content)
         result = chat_client.query(query_content)
 
-        logger.info("八字排盘结果: %s", result)
+        logger.info("八字排盘result: %s", result)
 
         return jsonify({"data": result,'key':key}), 200
 
