@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder="frontend/dist", template_folder="frontend/d
 app.secret_key = os.getenv("FLASK_SECRET_KEY", Constant.AES_KEY)  # 确保 session 可用
 
 # ✅ 允许前端携带 session 并指定跨域源
-# CORS(app, supports_credentials=True, origins=["http://localhost:8000"])  # 确保与前端一致
+# CORS(app, supports_credentials=True, origins=["http://localhost:5000"])  # 确保与前端一致
 # CORS(app, supports_credentials=True, origins=["http://13.229.224.223:5000"])  # 确保与前端一致
 CORS(app, supports_credentials=True, origins=["https://fortunegate.net"])  # 确保与前端一致
 # CORS(app, supports_credentials=True, origins=["http://127.0.0.1:5000"])  # 确保与前端一致
@@ -26,7 +26,7 @@ app.register_blueprint(register_api, url_prefix="/api")
 @app.after_request
 def after_request(response):
     """ 确保所有请求都返回 CORS 头 """
-    # response.headers["Access-Control-Allow-Origin"] = "http://localhost:8000"  # 必须匹配前端域名
+    # response.headers["Access-Control-Allow-Origin"] = "http://localhost:5000"  # 必须匹配前端域名
     # response.headers["Access-Control-Allow-Origin"] = "http://13.229.224.223:5000"
     response.headers["Access-Control-Allow-Origin"] = "https://fortunegate.net"
     # response.headers["Access-Control-Allow-Origin"] = "http://127.0.0.1:5000"
