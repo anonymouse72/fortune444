@@ -58,27 +58,27 @@ def submit_form():
         birth_minute = birth_datetime.minute
         birth_second = birth_datetime.second
 
-        # conn = get_db_connection()
-        # if conn is None:
-        #     return jsonify({'message': 'Database connection failed'}), 500
-        #
-        # cursor = conn.cursor()
-        #
-        # cursor.execute(
-        #     "INSERT INTO users (name,email, gender, year, month, day, hour, minute, seconds, location, race, createtime) VALUES "
-        #     "(%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-        #     (name,email, gender, birth_year, birth_month, birth_day, birth_hour, birth_minute, birth_second,
-        #      birth_location, race, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-        # )
-        #
+        conn = get_db_connection()
+        if conn is None:
+            return jsonify({'message': 'Database connection failed'}), 500
+
+        cursor = conn.cursor()
+
+        cursor.execute(
+            "INSERT INTO users (name,email, gender, year, month, day, hour, minute, seconds, location, race, createtime) VALUES "
+            "(%s,%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+            (name,email, gender, birth_year, birth_month, birth_day, birth_hour, birth_minute, birth_second,
+             birth_location, race, datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        )
+
         # cursor.execute(
         #     "INSERT INTO recordbirth (birth, gender, fromuser,createtime) VALUES (%s, %s, %s,%s)",
         #     (birth, gender, userid,datetime.now().strftime("%Y-%m-%d %H:%M:%S"))  # `user_id` 未定义，改用 `email`
         # )
-        #
-        # conn.commit()
-        # cursor.close()
-        # conn.close()
+
+        conn.commit()
+        cursor.close()
+        conn.close()
         birth_date = (birth_year, birth_month, birth_day, birth_hour)
 
         analyzer = AstrologyAnalyzer(birth_date, gender)
